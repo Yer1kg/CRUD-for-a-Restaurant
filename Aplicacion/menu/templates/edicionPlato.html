@@ -1,0 +1,38 @@
+{% extends "./base.html" %}
+
+{% block title %} Gestion de platos {% endblock %}
+
+{% block body %}
+<!-- Contenido específico de la página de edición de platos -->
+<div class="row">
+    <!-- Columna para el formulario de edición -->
+    <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4">
+        <!-- Encabezado de la sección -->
+        <h2>Edición de platos</h2>
+        <!-- Tarjeta con el formulario de edición -->
+        <div class="card">
+            <div class="card-body">
+                <!-- Formulario de edición de platos -->
+                <form action="/editarPlato/" method="POST">{% csrf_token %}
+                    <!-- Campo para el código del plato (solo lectura) -->
+                    <div class="form-group mb-3">
+                        <input type="text" id="txtcodigo" name="txtcodigo" value="{{ plato.codigo }}" class="form-control" placeholder="Código" minlength="6" max="6" readonly required>
+                    </div>
+                    <!-- Campo para el nombre del plato -->
+                    <div class="form-group mb-3">
+                        <input type="text" id="txtnombre" name="txtnombre" value="{{ plato.nombre }}" class="form-control" placeholder="Nombre" maxlength="50" required>
+                    </div>
+                    <!-- Campo para el precio del plato -->
+                    <div class="form-group mb-3">
+                        <input type="text" id="numprecio" name="numprecio" value="{{ plato.precio }}" class="form-control" placeholder="Precio"  maxlength="9" value="1" required>
+                    </div>
+                    <!-- Botón de guardar -->
+                    <div class="form-group mb-3">
+                            <button type="submit" class="btn btn-success btn-block w-100">Guardar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
