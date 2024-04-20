@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-kb=(#-quzif+$x06siuf8-cd5u38wmst+ex2lm0ok*wze7bv*u
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['https://crud-for-a-restaurant.onrender.com/']
 
 
 # Application definition
