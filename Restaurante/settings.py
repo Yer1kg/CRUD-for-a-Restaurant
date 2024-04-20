@@ -26,7 +26,11 @@ SECRET_KEY = 'django-insecure-kb=(#-quzif+$x06siuf8-cd5u38wmst+ex2lm0ok*wze7bv*u
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['https://crud-for-a-restaurant.onrender.com/']
+ALLOWED_HOSTS = [
+    'localhost',  # Para pruebas locales
+    '127.0.0.1',  # También para pruebas locales
+    'crud-for-a-restaurant.onrender.com',  # El dominio de tu aplicación en Render
+    ]
 
 
 # Application definition
