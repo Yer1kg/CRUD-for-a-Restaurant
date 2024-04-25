@@ -3,6 +3,7 @@ from .models import plato
 from django.contrib import messages
 from django.db import IntegrityError
 
+MAX_PLATOS = 6  # Establece tu límite aquí
 
 # La función home renderiza la página principal y lista todos los platos.
 def home(request):
@@ -16,6 +17,11 @@ def home(request):
 # La función registrarPlato registra un nuevo plato en la base de datos.
 def registrarPlato(request):
     if request.method == "POST":
+        # Verifica si se ha alcanzado el límite
+        if plato.objects.count() >= MAX_PLATOS:
+            messages.error(request, "No puedes crear más de {} platos.".format(MAX_PLATOS))
+            return redirect('/')
+        
         try:
             # Obtiene el código del POST
             codigo = request.POST.get("txtcodigo")
