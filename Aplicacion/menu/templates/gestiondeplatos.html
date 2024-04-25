@@ -7,14 +7,16 @@
 <div class="row mt-10">
     <!-- Columna para el formulario de registro -->
     <div class=" col-sm-12 col-md-6 col-lg-4 col-xl-4">
-        <!-- Mensajes de éxito -->
+        <!-- Mensajes para informar al usuario -->
         {% if messages %}
-        {% for message in messages %}
-        <div class="alert alert-dismissible alert-success">
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" ></button>
-            <strong class="text-dark">{{ message }}</strong>
-        </div>
-        {% endfor %}
+            <div class="messages">
+                {% for message in messages %}
+                <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                {% endfor %}
+            </div>
         {% endif %}
          <!-- Encabezado de la sección -->
         <h2>Gestión de platos</h2>
@@ -22,16 +24,19 @@
         <div class="card">
             <div class="card-body">
                 <form action="/registrarPlato/" method="POST">{% csrf_token %}
-                    <div class="form-group mb-3">
-                        <input type="text" id="txtcodigo" name="txtcodigo" class="form-control" placeholder="Código" minlength="6" max="6" required>
+                    <div class="form-group mb-3 text-left">
+                        <label for="txtcodigo" style="float: left; padding-left: 5px;">Código</label>
+                        <input type="number" id="txtcodigo" name="txtcodigo" class="form-control" placeholder="123456" minlength="6" size="6" required >
                     </div>
-                    <div class="form-group mb-3">
-                        <input type="text" id="txtnombre" name="txtnombre" class="form-control" placeholder="Nombre" maxlength="50" required>
+                    <div class="form-group mb-3 text-left">
+                        <label for="txtnombre" style="float: left; padding-left: 5px;">Nombre</label>
+                        <input type="text" id="txtnombre" name="txtnombre" class="form-control" placeholder="Bocadillo" maxlength="50" required>
                     </div>
-                    <div class="form-group mb-3">
-                        <input type="text" id="numprecio" name="numprecio" class="form-control" placeholder="Precio"  maxlength="9" value="1" required>
+                    <div class="form-group mb-3 text-left">
+                        <label for="numprecio" style="float: left; padding-left: 5px;">Precio</label>
+                        <input type="text" id="numprecio" name="numprecio" class="form-control" placeholder="10"  maxlength="9"  required>
                     </div>
-                    <div class="form-group mb-3">
+                    <div class="form-group mb-3 text-left">
                             <button type="submit" class="btn btn-success btn-block w-100">Guardar</button>
                     </div>
                 </form>

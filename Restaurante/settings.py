@@ -147,3 +147,9 @@ if not DEBUG:
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field  
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+#Mensaje de color rojo para que tenga compatibilidad con boostrap y DJANGO, así evitamos que se vea transparente
+from django.contrib.messages import constants as messages
+MESSAGE_TAGS = {
+    messages.ERROR: 'danger',
+}
