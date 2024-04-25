@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect
 from .models import plato
 from django.contrib import messages
+from django.db import IntegrityError
+
 
 # La función home renderiza la página principal y lista todos los platos.
 def home(request):
@@ -13,16 +15,37 @@ def home(request):
 
 # La función registrarPlato registra un nuevo plato en la base de datos.
 def registrarPlato(request):
-    # Obtiene los datos del formulario de registro de platos.
-    codigo=request.POST['txtcodigo']
-    nombre=request.POST['txtnombre']
-    precio=request.POST['numprecio']
-    # Crea un nuevo objeto de plato con los datos proporcionados y lo guarda en la base de datos.
-    nuevo_plato=plato.objects.create(codigo=codigo, nombre=nombre, precio=precio)
-    # Agrega un mensaje de éxito para indicar que el plato se ha registrado correctamente.
-    messages.success(request, '¡Plato registrado!')
-    # Redirecciona a la página principal.
+    if request.method == "POST":
+        try:
+            # Obtiene el código del POST
+            codigo = request.POST.get("txtcodigo")
+            
+            # Verifica si ya existe un plato con este código
+            if plato.objects.filter(codigo=codigo).exists():
+                # Si existe, muestra un mensaje de error
+                messages.error(request, "El código ya está en uso. Por favor, elige otro.")
+                return redirect('/registrarPlato/')
+
+            # Si el código es único, crea un nuevo plato
+            nuevo_plato = plato(
+                codigo=codigo,
+                nombre=request.POST.get("txtnombre"),
+                precio=int(request.POST.get("numprecio", 0))  # Convertir a número
+            )
+            
+            # Guarda el nuevo plato
+            nuevo_plato.save()
+            messages.success(request, '¡Plato registrado con éxito!')
+            return redirect('/')
+        
+        except Exception as e:
+            # Maneja otros posibles errores
+            messages.error(request, f"Error al registrar el plato: {str(e)}")
+            return redirect('/registrarPlato/')
+    
+    # Si no es POST, redirige a la página de inicio
     return redirect('/')
+
 
 # La función edicionPlato renderiza la página de edición de un plato específico.
 def edicionPlato(request, codigo):
@@ -63,3 +86,7 @@ def eliminarPlato(request, codigo):
 def contacto(request):
     return render(request, 'contacto.html')
 
+
+
+    
+  
