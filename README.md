@@ -1,4 +1,4 @@
-Restaurant Crud was created as an example of a web application based on a restaurant card which you can manage.
+Restaurant crud was created as an example of a web application based on a restaurant card which you can manage.
 
 How does it work:
 
